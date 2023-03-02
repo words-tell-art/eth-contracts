@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "delysium_nft",
+    "name": "eth-contracts",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
