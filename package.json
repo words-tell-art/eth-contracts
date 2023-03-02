@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.8.1"
+    "@openzeppelin/contracts": "^4.8.1",
+    "@zoralabs/nft-drop-contracts": "^1.11.1"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.2",
