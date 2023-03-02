@@ -1,0 +1,11 @@
+# Dependency directories (remove the comment below to include it)
+node_modules
+.env
+
+#Hardhat files
+cache
+artifacts
+
+.idea
+yarn.lock
+/.openzeppelin
