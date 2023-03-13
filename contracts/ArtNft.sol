@@ -7,7 +7,7 @@ import "./interfaces/IERC721Drop.sol";
 contract ArtNft is NFT {
     event CraftEvent(uint256 idCraft, uint256[] idBurned);
     event MergeEvent(uint256 idMerged, uint256 idBurned);
-
+    address burn = 0x000000000000000000000000000000000000dEaD;
     IERC721Drop _wordNft;
 
     constructor(address wordNft, address proxyRegistryAddress) NFT("Words Tell Art", "ART", proxyRegistryAddress) {
@@ -19,7 +19,7 @@ contract ArtNft is NFT {
         require(wordIs.length >= 2, "Require at least 2 words.");
         uint max = wordIs.length;
         for (uint i = 0; i < max; i++) {
-            _wordNft.burn(wordIs[i]);
+            _wordNft.safeTransferFrom(msg.sender, burn, wordIs[i]);
         }
         _mintTo(msg.sender, wordIs[0]);
         emit CraftEvent(wordIs[0], wordIs);
