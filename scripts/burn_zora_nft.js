@@ -33,8 +33,7 @@ async function main() {
     console.log("Network: ", hre.network.name)
 
     const WordNft = await hre.ethers.getContractAt("IERC721Drop", "0x8186b1b1397acd543a990347b01d5ccf29490a66");
-    console.log("Word: ", WordNft)
-    const burn = await WordNft.burn(4);
+    const burn = await WordNft.safeTransferFrom("0x5d097492e2FB156696Ad1f16cB5C478cFcAEBAEB", "0x000000000000000000000000000000000000dEaD", 4);
     console.log("WordNft burn?", burn);
 }
 
