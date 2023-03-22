@@ -2,14 +2,15 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./opensea/ERC721Tradable.sol";
-import "./Maintainer.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
+import "./utils/Maintainer.sol";
 
-contract NFT is ERC721Tradable, Maintainer {
-    string private __baseURI;
-    string private __contractBaseURI;
+contract NFT is ERC721, ERC721Burnable, ERC721Pausable, Maintainer {
+    string internal __baseURI;
+    string internal __contractBaseURI;
 
-    constructor(string memory _name, string memory _symbol, address _proxyRegistryAddress) ERC721Tradable(_name, _symbol, _proxyRegistryAddress) Maintainer() {}
+    constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) Maintainer() {}
 
     function contractURI() public view returns (string memory) {
         return __contractBaseURI;
@@ -22,12 +23,6 @@ contract NFT is ERC721Tradable, Maintainer {
 
     function setBaseURI(string memory newBaseURI) external onlyMaintainer {
         __baseURI = newBaseURI;
-    }
-
-    function airdrop(address user, uint256 quantity) external onlyMaintainer {
-        for (uint256 i = 0; i < quantity; i++) {
-            _mintTo(user);
-        }
     }
 
     // public functions
@@ -59,5 +54,14 @@ contract NFT is ERC721Tradable, Maintainer {
 
     function unpause() external onlyMaintainer {
         _unpause();
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal override(ERC721, ERC721Pausable) {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 }

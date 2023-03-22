@@ -2,16 +2,19 @@
 pragma solidity ^0.8.4;
 
 import "./NFT.sol";
-import "./interfaces/IERC721Drop.sol";
+import "@openzeppelin/contracts/interfaces/IERC721.sol";
 
-contract ArtNft is NFT {
-    event CraftEvent(uint256 idCraft, uint256[] idBurned);
-    event MergeEvent(uint256 idMerged, uint256 idBurned);
+contract ArtNFT is NFT {
+    event CraftEvent(uint256 id, uint256[] idBurned);
+    event MergeEvent(uint256 id, uint256 idBurned);
+
     address burnAddress = 0x000000000000000000000000000000000000dEaD;
-    IERC721Drop _wordNft;
+    IERC721 _wordNft;
 
-    constructor(address wordNft, address proxyRegistryAddress) NFT("Words Tell Art", "ART", proxyRegistryAddress) {
-        _wordNft = IERC721Drop(wordNft);
+    constructor(address wordNft, string memory metadata, string memory contractMetadata) NFT("Words Tell Art", "ART") {
+        _wordNft = IERC721(wordNft);
+        __baseURI = metadata;
+        __contractBaseURI = contractMetadata;
     }
 
     function craft(uint256[] memory wordIs) external {

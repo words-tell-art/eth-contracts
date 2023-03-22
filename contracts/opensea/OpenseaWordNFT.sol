@@ -1,10 +1,10 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.4;
 
-import "./opensea/ERC721Tradable.sol";
-import "./NFT.sol";
+import "./ERC721Tradable.sol";
+import "./OpenseaNFT.sol";
 
-contract WordNft is NFT {
+contract OpenseaWordNFT is OpenseaNFT {
 
     event MergeEvent(uint256 idMerged, uint256 idBurned);
 
@@ -18,7 +18,7 @@ contract WordNft is NFT {
 
     mapping(uint256 => Data) private nfts;
 
-    constructor(address _proxyRegistryAddress) NFT("Words Tell Art - Origin", "WORDS", _proxyRegistryAddress){}
+    constructor(address _proxyRegistryAddress) OpenseaNFT("Words Tell Art - Origin", "WORDS", _proxyRegistryAddress){}
 
     function merge(uint256 art1, uint256 art2) external {
         require(_isApprovedOrOwner(msg.sender, art1), "Caller is not token owner");

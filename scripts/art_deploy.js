@@ -8,12 +8,14 @@ const hre = require("hardhat");
 // Constants
 const network_configs = {
   goerli: {
-    proxyRegistryAddress: "0x1E525EEAF261cA41b809884CBDE9DD9E1619573A",
-    metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art/",
+    word_address: "0x8186b1b1397acd543a990347b01d5ccf29490a66",
+    contract_metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art-craft-test",
+    metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art-craft-test/",
   },
   eth : {
-    proxyRegistryAddress: "0x1E525EEAF261cA41b809884CBDE9DD9E1619573A",
-    metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art/",
+    word_address: "0xd5e5a0d5ad5048af6e0f9479603eacbdbcf400ce",
+    contract_metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art-craft",
+    metadata_uri: "https://metadata.dlab.ovh/api/metadata/ethereum/words-tell-art-craft/",
   },
 }
 let config;
@@ -36,23 +38,18 @@ async function main() {
   console.log("Network: ", hre.network.name)
   console.log("Metadata URI: ", config.metadata_uri)
 
-  const WordNft = await hre.ethers.getContractFactory("OpenseaWordNFT");
-  const wordNft = await WordNft.deploy(config.proxyRegistryAddress);
-  await wordNft.deployed();
+  const ArtNft = await hre.ethers.getContractFactory("ArtNFT");
+  const artNft = await ArtNft.deploy(config.word_address, config.metadata_uri, config.contract_metadata_uri);
+  await artNft.deployed();
 
+  console.log("ArtNft deployed to:", artNft.address);
 
-  console.log("WordNft deployed to:", wordNft.address);
-  await wordNft.setBaseURI(config.metadata_uri);
-  console.log("WordNft metadata added: ", config.metadata_uri);
-  await wordNft.addMaintainer("0x5FbDB2315678afecb367f032d93F642f64180aa3");
-  console.log("WordNft maintainer added: ", "0x5FbDB2315678afecb367f032d93F642f64180aa3");
-
-  await wordNft.deployTransaction.wait(3);
+  await artNft.deployTransaction.wait(3);
   // verify the contracts
   await hre.run("verify:verify", {
-    address: wordNft.address,
-    contract: "contracts/WordNft.sol:WordNft",
-    constructorArguments: [config.proxyRegistryAddress],
+    address: artNft.address,
+    contract: "contracts/ArtNFT.sol:ArtNFT",
+    constructorArguments: [config.word_address, config.metadata_uri, config.contract_metadata_uri],
   });
 }
 
