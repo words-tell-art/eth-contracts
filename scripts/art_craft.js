@@ -45,7 +45,7 @@ async function main() {
     const resp1 = await wordNft.setApprovalForAll(config.art_address, true)
     console.log("WordNft: approve", resp1);
 
-    const resp2 = await artNft.craft([1, 2, 5]);
+    const resp2 = await artNft.craft([7,8]);
     console.log("Art craft done: ", resp2);
 }
 
