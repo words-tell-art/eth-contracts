@@ -12,7 +12,7 @@ const network_configs = {
         //art_address: "0xe4A4786956B7643b05642f3c3fE10d9298c65E48",
         art_address: "0x135C5cEC37294B70C4C5a8F9bc60a246080e5102"
     },
-    eth : {
+    eth: {
         art_address: ""
     },
 }
@@ -34,20 +34,12 @@ async function main() {
     }
 
     console.log("Network: ", hre.network.name)
-
     const ArtNft = await hre.ethers.getContractFactory("ArtTinyNFT");
     const artNft = await ArtNft.attach(config.art_address);
     console.log("ArtNft: ", artNft.address);
 
-    const WordNft = await hre.ethers.getContractFactory("ArtTinyNFT");
-    const wordNft = await WordNft.attach(config.word_address);
-    console.log("WordNft: ", wordNft.address);
-
-    const resp1 = await wordNft.setApprovalForAll(config.art_address, true)
-    console.log("WordNft: approve", resp1);
-
-    const resp2 = await artNft.craft([51,54]);
-    console.log("Art craft done: ", resp2);
+    const resp2 = await artNft.merge(36, 39);
+    console.log("Art merge done: ", resp2);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

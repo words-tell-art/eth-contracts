@@ -24,12 +24,12 @@ npx hardhat compile
 # Deployment
 ### Deploy to mainnet
 ```
-npx hardhat --network mainnet run scripts/word_deploy.js
+npx hardhat --network mainnet run scripts/art_deploy.js
 ```
 
 ### Deploy to Goerli testnet
 ```
-npx hardhat --network goerli run scripts/word_deploy.js
+npx hardhat --network goerli run scripts/art_deploy.js
 ```
 
 ## Deployed contract addresses
