@@ -9,8 +9,8 @@ const hre = require("hardhat");
 const network_configs = {
     goerli: {
         word_address: "0x8186b1b1397acd543a990347b01d5ccf29490a66",
-        //art_address: "0xe4A4786956B7643b05642f3c3fE10d9298c65E48",
-        art_address: "0x135C5cEC37294B70C4C5a8F9bc60a246080e5102"
+        art_address: "0xe4A4786956B7643b05642f3c3fE10d9298c65E48",
+        //art_address: "0x135C5cEC37294B70C4C5a8F9bc60a246080e5102"
     },
     eth: {
         art_address: ""
@@ -34,11 +34,11 @@ async function main() {
     }
 
     console.log("Network: ", hre.network.name)
-    const ArtNft = await hre.ethers.getContractFactory("ArtTinyNFT");
+    const ArtNft = await hre.ethers.getContractFactory("ArtNFT");
     const artNft = await ArtNft.attach(config.art_address);
     console.log("ArtNft: ", artNft.address);
 
-    const resp2 = await artNft.merge(36, 39);
+    const resp2 = await artNft.merge(1, 7);
     console.log("Art merge done: ", resp2);
 }
 

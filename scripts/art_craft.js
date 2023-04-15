@@ -35,11 +35,11 @@ async function main() {
 
     console.log("Network: ", hre.network.name)
 
-    const ArtNft = await hre.ethers.getContractFactory("ArtTinyNFT");
+    const ArtNft = await hre.ethers.getContractFactory("ArtNFT");
     const artNft = await ArtNft.attach(config.art_address);
     console.log("ArtNft: ", artNft.address);
 
-    const WordNft = await hre.ethers.getContractFactory("ArtTinyNFT");
+    const WordNft = await hre.ethers.getContractFactory("ArtNFT");
     const wordNft = await WordNft.attach(config.word_address);
     console.log("WordNft: ", wordNft.address);
 
