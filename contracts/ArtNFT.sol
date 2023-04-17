@@ -31,15 +31,15 @@ contract ArtNFT is ERC721, Ownable {
         __baseURI = newBaseURI;
     }
 
-    function craft(uint256[] memory wordIs) external {
+    function craft(uint256[] memory wordIds) external {
         require(_wordNft.isApprovedForAll(_msgSender(), address(this)), "not approved");
-        require(wordIs.length >= 2, "missing words");
-        uint max = wordIs.length;
+        require(wordIds.length >= 2, "missing words");
+        uint max = wordIds.length;
         for (uint i = 0; i < max; i++) {
-            _wordNft.safeTransferFrom(_msgSender(), burnAddress, wordIs[i]);
+            _wordNft.safeTransferFrom(_msgSender(), burnAddress, wordIds[i]);
         }
-        _safeMint(_msgSender(), wordIs[0]);
-        emit CraftEvent(wordIs[0], wordIs);
+        _safeMint(_msgSender(), wordIds[0]);
+        emit CraftEvent(wordIds[0], wordIds);
     }
 
     function merge(uint256 art1, uint256 art2) external {
