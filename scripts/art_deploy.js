@@ -24,7 +24,7 @@ const network_configs = {
   },
 }
 let config;
-let contractName = "ArtNFT"
+let contractName = "ArtNFT5"
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -49,6 +49,14 @@ async function main() {
   await artNft.deployed();
 
   console.log("ArtNft deployed to:", artNft.address);
+
+  const WordNft = await hre.ethers.getContractFactory("ArtNFT");
+  const wordNft = await WordNft.attach(config.word_address);
+  console.log("WordNft: ", wordNft.address);
+
+  const resp1 = await wordNft.setApprovalForAll(artNft.address, true)
+  console.log("WordNft: approve", resp1);
+
 
   await artNft.deployTransaction.wait(3);
   // verify the contracts
